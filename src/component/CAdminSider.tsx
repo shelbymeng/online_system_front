@@ -32,7 +32,7 @@ export default () => {
             icon={<MessageOutlined />}
             onClick={() => history.push('/admin/appeal')}
           >
-            申诉查看
+            异常订单
           </Menu.Item>
         </Menu>
       </Sider>

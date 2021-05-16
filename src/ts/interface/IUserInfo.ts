@@ -3,5 +3,6 @@ interface IUserInfo {
   account: number;
   username: string;
   role: ERole;
+  phonenumber: number;
 }
 export default IUserInfo;

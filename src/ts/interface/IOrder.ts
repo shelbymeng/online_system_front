@@ -12,8 +12,11 @@ interface IOrder {
   state: string; //接单状态
   helperAccount?: number; //接单者学号
   helper?: string; //接单者姓名
-  rate?: number; //接单者信誉
+  extra: number; //费用
   startTime?: string; //接单时间
   finishTime?: string; //完成时间
+  appeal: string; // 申诉单
+  locked: string; //管理员冻结
+  urgency: string; //紧急程度
 }
-export default IOrder
+export default IOrder;

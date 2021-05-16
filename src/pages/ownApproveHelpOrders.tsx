@@ -21,6 +21,7 @@ export default () => {
       title: '学生姓名',
       dataIndex: 'userName',
       key: 'userName',
+      width: 100,
     },
     {
       title: '订单编号',
@@ -81,8 +82,11 @@ export default () => {
   ];
   async function finishOrder(params: IOrder) {
     const res = await finishOrderService({
+      account: params.account,
       orderId: params.orderId,
+      helperAccount: params.helperAccount!,
       finishTime: new Date().getTime(),
+      extra: params.extra,
     });
     if (res.error !== 0) {
       message.error('完成订单失败');

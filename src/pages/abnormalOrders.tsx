@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { PageHeader, Button, Table, Popconfirm, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, PageHeader, Table, Popconfirm, message } from 'antd';
+import { history } from 'umi';
+import IOrder from '../ts/interface/IOrder';
 import getAbnormalOrderService from '@/service/orderService/getAbnormalOrders';
-import IOrder from '@/ts/interface/IOrder';
-import dealAppealOrderService from '@/service/orderService/dealAppealOrderService';
 
 export default () => {
   const [order, setOrder] = useState<Array<IOrder>>();
@@ -11,19 +11,18 @@ export default () => {
       title: '学生学号',
       dataIndex: 'account',
       key: 'account',
-      fixed: 'left',
+      width: 100,
+      fixed: true,
     },
     {
       title: '学生姓名',
       dataIndex: 'userName',
       key: 'userName',
-      fixed: 'left',
     },
     {
       title: '订单编号',
       dataIndex: 'orderId',
       key: 'orderId',
-      width: 200,
     },
     {
       title: '求助类别',
@@ -41,22 +40,14 @@ export default () => {
       key: 'location',
     },
     {
-      title: '费用￥',
-      dataIndex: 'extra',
-      key: 'extra',
-      sorter: (a:IOrder, b:IOrder) => a.extra - b.extra,
-    },
-    {
       title: '发布时间',
       dataIndex: 'releaseTime',
       key: 'releaseTime',
-      width: 200,
     },
     {
       title: '期望时间',
       dataIndex: 'expectTime',
       key: 'expectTime',
-      width: 200,
     },
     {
       title: '接单状态',
@@ -64,43 +55,21 @@ export default () => {
       key: 'state',
     },
     {
-      title: '申诉状态',
-      dataIndex: 'appeal',
-      key: 'appeal',
-      fixed: 'right',
-    },
-    {
-      title: '订单状态',
-      dataIndex: 'locked',
-      key: 'locked',
-      fixed: 'right',
-    },
-    {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
-      width: 150,
-      fixed: 'right',
       render: (text: string, record: IOrder) => (
-        <Popconfirm
-          title="是否申诉"
-          onConfirm={() => finishOrder(record.orderId)}
-        >
-          <Button type="link">解决申诉</Button>
+        <Popconfirm title="是否申诉" onConfirm={() => appeal(record.orderId)}>
+          <Button type="link">申诉</Button>
         </Popconfirm>
       ),
     },
   ];
-  async function finishOrder(orderId: string) {
+  async function appeal(orderId: string) {
     console.log(
-      `ML ~ file: appeal.tsx ~ line 69 ~ finishOrder ~ orderId`,
+      `ML ~ file: abnormalOrders.tsx ~ line 71 ~ appeal ~ orderId`,
       orderId,
     );
-    const res = await dealAppealOrderService(orderId);
-    if (res && res.error === 0) {
-      message.success('解决成功');
-      getAbnormalOrders();
-    }
   }
   async function getAbnormalOrders() {
     const res = await getAbnormalOrderService();
@@ -113,13 +82,11 @@ export default () => {
   }, []);
   return (
     <div>
-      <PageHeader title="异常订单"></PageHeader>
-      <Table
-        columns={ordersColumn}
-        dataSource={order}
-        scroll={{ x: 1500 }}
-        sticky
-      ></Table>
+      <PageHeader
+        onBack={() => history.push('/person')}
+        title="异常订单"
+      ></PageHeader>
+      <Table columns={ordersColumn} dataSource={order}></Table>
     </div>
   );
 };

@@ -55,6 +55,10 @@ export default defineConfig({
           path: '/person/ownApproveHelpOrders',
           component: '@/pages/ownApproveHelpOrders',
         },
+        {
+          path: '/person/abnormalOrders',
+          component: '@/pages/abnormalOrders',
+        },
       ],
     },
   ],

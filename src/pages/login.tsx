@@ -17,6 +17,7 @@ import {
 import { history } from 'umi';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import IAddress from '../ts/interface/IAddress';
+import picture from '../assets/IMG_1957.png';
 const { Option } = Select;
 export default () => {
   const [account, setAccount] = useState('');
@@ -65,6 +66,14 @@ export default () => {
     };
     const res = await userLogin(param);
     console.log(`ML ~ file: login.tsx ~ line 36 ~ login ~ res`, res);
+    if (res && res.error === 1) {
+      message.warn(res.msg);
+      return;
+    }
+    if (res.error === 1001) {
+      message.warn(res.msg);
+      return;
+    }
     if (res && res.role !== 'admin') {
       history.push('/');
     }
@@ -83,10 +92,11 @@ export default () => {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        marginTop: 50,
+        alignItems:'center'
       }}
     >
-      <Card hoverable style={{ width: 300, height: 300 }} title="在线系统">
+      <img src={picture} />
+      <Card hoverable style={{ width: 300, height: 300,marginLeft:40 }} title="在线互助系统">
         <Input
           prefix={
             <div>

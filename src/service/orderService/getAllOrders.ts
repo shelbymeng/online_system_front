@@ -1,14 +1,9 @@
+import { URL, dateFormat } from '../../config';
 import axios from 'axios';
 import IOrder from '../../ts/interface/IOrder';
 import moment from 'moment';
-import { URL, dateFormat } from '../../config';
-/**
- *  获取全部未接单订单信息
- *  @param {IOrder}
- *
- */
-async function getOrderService(account: number) {
-  const ordersRes = await axios.post(`${URL}/getHelpInfo`, { account: account });
+export default async function getAllOrderService() {
+  const ordersRes = await axios.get(`${URL}/getAllOrders`);
   if (ordersRes.data.error !== 0) {
     return {
       error: ordersRes.data.error,
@@ -29,4 +24,3 @@ async function getOrderService(account: number) {
     data: orders,
   };
 }
-export default getOrderService;

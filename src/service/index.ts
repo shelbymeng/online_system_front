@@ -33,7 +33,13 @@ async function userLogin(params: ILogin) {
   if (loginResult.data.error !== 0) {
     return {
       error: 1001,
-      msg: '登陆失败',
+      msg: '用户名或密码错误',
+    };
+  }
+  if (loginResult.data.data[0].locked === '冻结') {
+    return {
+      error: 1,
+      msg: '该账户已冻结,请联系管理员',
     };
   }
   //  设置session
@@ -41,6 +47,7 @@ async function userLogin(params: ILogin) {
     account: loginResult.data.data[0].account,
     username: loginResult.data.data[0].username,
     role: loginResult.data.data[0].role,
+    phonenumber: loginResult.data.data[0].phonenumber,
   });
   // socket.emit('login', {
   //   account: loginResult.data.data[0].account,
@@ -65,7 +72,7 @@ async function getUserService() {
  * 修改用户状态
  */
 async function setUserStatusService(params: IUsers) {
-  const res = await axios.post(`${URL}/updateUserStatus`,params);
+  const res = await axios.post(`${URL}/updateUserStatus`, params);
   if (res.data.error === 0) {
     return {
       error: 0,
@@ -91,6 +98,26 @@ async function getAddressService() {
   };
 }
 /**
+ * 学生获取个人信息
+ */
+async function getUserInfoService(account: number) {
+  const res = await axios.post(`${URL}/getUserInfo`, { account: account });
+  if (res.data.error === 0) {
+    return res.data.data[0];
+  }
+}
+/**
+ * 学生修改个人信息
+ */
+async function updateUserInfoService(params: IUsers) {
+  const res = await axios.post(`${URL}/updateUserInfo`, params);
+  if (res.data.error === 0) {
+    return {
+      error: 0,
+    };
+  }
+}
+/**
  * 建立socket
  *
  */
@@ -110,4 +137,6 @@ export {
   getAddressService,
   chatConnection,
   setUserStatusService,
+  getUserInfoService,
+  updateUserInfoService,
 };
