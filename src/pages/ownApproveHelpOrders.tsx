@@ -22,6 +22,7 @@ export default () => {
       dataIndex: 'userName',
       key: 'userName',
       width: 100,
+      fixed: true,
     },
     {
       title: '订单编号',
@@ -32,16 +33,19 @@ export default () => {
       title: '求助类别',
       dataIndex: 'category',
       key: 'category',
+      width: 100,
     },
     {
       title: '求助信息',
       dataIndex: 'info',
       key: 'info',
+      width: 100,
     },
     {
       title: '地点',
       dataIndex: 'location',
       key: 'location',
+      width: 100,
     },
     {
       title: '发布时间',
@@ -62,6 +66,8 @@ export default () => {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
+      width: 220,
+      fixed: 'right',
       render: (text: string, record: IOrder) => (
         <div>
           <Popconfirm
@@ -125,7 +131,12 @@ export default () => {
         title="个人接单"
         onBack={() => history.push('/person')}
       ></PageHeader>
-      <Table columns={ordersColumn} dataSource={orders}></Table>
+      <Table
+        columns={ordersColumn}
+        dataSource={orders}
+        scroll={{ x: 1500 }}
+        sticky
+      ></Table>
     </div>
   );
 };

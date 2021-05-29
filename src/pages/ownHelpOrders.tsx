@@ -22,6 +22,7 @@ export default () => {
       title: '学生姓名',
       dataIndex: 'userName',
       key: 'userName',
+      width: 100,
       fixed: true,
     },
     {
@@ -34,22 +35,26 @@ export default () => {
       title: '求助类别',
       dataIndex: 'category',
       key: 'category',
+      width: 100,
     },
     {
       title: '求助信息',
       dataIndex: 'info',
       key: 'info',
+      width: 100,
     },
     {
       title: '地点',
       dataIndex: 'location',
       key: 'location',
+      width: 100,
     },
     {
       title: '费用￥',
       dataIndex: 'extra',
       key: 'extra',
-      sorter: (a:IOrder, b:IOrder) => a.extra - b.extra,
+      sorter: (a: IOrder, b: IOrder) => a.extra - b.extra,
+      width: 100,
     },
     {
       title: '发布时间',
@@ -67,16 +72,19 @@ export default () => {
       title: '接单状态',
       dataIndex: 'state',
       key: 'state',
+      width: 100,
     },
     {
       title: '申诉状态',
       dataIndex: 'appeal',
       key: 'appeal',
+      width: 100,
     },
     {
       title: '订单状态',
       dataIndex: 'locked',
       key: 'locked',
+      width: 100,
     },
     {
       title: '操作',

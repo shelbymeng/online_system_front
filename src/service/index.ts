@@ -1,12 +1,11 @@
 import ILogin from '../ts/interface/ILogin';
 import axios from 'axios';
-import { io } from 'socket.io-client';
+
 import sessionStorageService from '@/service/sessionStorageService';
 import IUsers from '../ts/interface/IUsers';
-
+import socketUtils from './chat';
 const URL = 'http://127.0.0.1:3000';
-const SOCKETURL = 'ws://127.0.0.1:4000/';
-// const socket = io(`${SOCKETURL}`);
+
 /**
  * 注册
  */
@@ -49,10 +48,11 @@ async function userLogin(params: ILogin) {
     role: loginResult.data.data[0].role,
     phonenumber: loginResult.data.data[0].phonenumber,
   });
-  // socket.emit('login', {
-  //   account: loginResult.data.data[0].account,
-  //   id: socket.id,
-  // });
+  const obj = {
+    account: loginResult.data.data[0].account,
+    username: loginResult.data.data[0].username,
+  };
+  socketUtils.online(obj);
   return loginResult.data.data[0];
 }
 /**
@@ -121,21 +121,25 @@ async function updateUserInfoService(params: IUsers) {
  * 建立socket
  *
  */
-async function chatConnection() {
-  // const user = sessionStorageService.getUser();
-  // //  获取在线好友
-  // socket.emit('handleOnlineUsers', user.account);
-  // socket.on('getOnlineUsers', (users: any) => {
-  //   console.log(`ML ~ file: index.ts ~ line 42 ~ socket.on ~ users`, users);
-  //   return users;
-  // });
+async function getUserChat(account: number) {
+  const res = await axios.post(`${URL}/getuserChat`, { account: account });
+  if (res.data.error !== 0) {
+    return {
+      error: res.data.error,
+      msg: res.data.msg,
+    };
+  }
+  return {
+    error: 0,
+    data: res.data.data,
+  };
 }
 export {
   registryService,
   userLogin,
   getUserService,
   getAddressService,
-  chatConnection,
+  getUserChat,
   setUserStatusService,
   getUserInfoService,
   updateUserInfoService,

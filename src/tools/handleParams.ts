@@ -25,10 +25,10 @@ function handleChatData(params: any) {
   }
   const list = [];
   for (let item of params) {
-    const { account, id } = item;
+    const { account, username } = item;
     list.push({
       title: account,
-      subtitle: 'fuck you bitch',
+      subtitle: username,
       date: new Date(),
       avatar:
         'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',

@@ -17,7 +17,7 @@ import {
 import { history } from 'umi';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import IAddress from '../ts/interface/IAddress';
-import picture from '../assets/IMG_1957.png';
+import imgURL from '../public/share.png';
 const { Option } = Select;
 export default () => {
   const [account, setAccount] = useState('');
@@ -90,13 +90,28 @@ export default () => {
   return (
     <div
       style={{
+        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems:'center',
+        height: '100vh',
+        width: '100vw',
       }}
     >
-      <img src={picture} />
-      <Card hoverable style={{ width: 300, height: 300,marginLeft:40 }} title="在线互助系统">
+      <img
+        src={imgURL}
+        style={{ position: 'absolute', width: '100%', height: '100%' }}
+      />
+      <Card
+        hoverable
+        style={{
+          width: 300,
+          height: 300,
+          boxShadow: ' 0px 3px 6px rgba(0, 0, 0,0.16)',
+          position: 'absolute',
+        }}
+        title="校内综合互助服务系统"
+      >
         <Input
           prefix={
             <div>
@@ -136,25 +151,61 @@ export default () => {
       </Card>
       <Modal title="注册" visible={visible} footer={null} onCancel={onCancel}>
         <Form form={form} onFinish={registry}>
-          <Form.Item name="account" label="学号">
+          <Form.Item
+            name="account"
+            label="学号"
+            rules={[
+              { required: true, message: '填写学号' },
+              { pattern: /^[0-9]{8}$/, message: '请输入正确的学号' },
+            ]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item name="username" label="姓名">
+          <Form.Item
+            name="username"
+            label="姓名"
+            rules={[
+              { required: true, message: '填写姓名' },
+              {
+                pattern: /^[\u4e00-\u9fa5]{2,4}$/,
+                message: '输入2-4个中文字符',
+              },
+            ]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item name="password" label="密码">
+          <Form.Item
+            name="password"
+            label="密码"
+            rules={[{ required: true, message: '填写密码' }]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item name="phonenumber" label="手机号">
+          <Form.Item
+            name="phonenumber"
+            label="手机号"
+            rules={[
+              { required: true, message: '填写手机号' },
+              { pattern: /^1[3578]\d{9}$/, message: '请输入正确的手机号' },
+            ]}
+          >
             <Input></Input>
           </Form.Item>
-          <Form.Item name="role" label="身份">
+          <Form.Item
+            name="role"
+            label="身份"
+            rules={[{ required: true, message: '选择身份' }]}
+          >
             <Select>
               <Option value="student">学生</Option>
               <Option value="teacher">教师</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="address" label="地址">
+          <Form.Item
+            name="address"
+            label="地址"
+            rules={[{ required: true, message: '选择地址' }]}
+          >
             <Select>
               {addressArr &&
                 addressArr.map((item) => (

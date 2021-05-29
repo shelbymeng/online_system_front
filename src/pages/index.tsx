@@ -215,7 +215,11 @@ export default function IndexPage() {
               <Form.Item name="account" label="学号" initialValue={ACCOUNT}>
                 <Input disabled={true}></Input>
               </Form.Item>
-              <Form.Item name="info" label="求助信息">
+              <Form.Item
+                name="info"
+                label="求助信息"
+                style={{ margin: '20px 0' }}
+              >
                 <Input></Input>
               </Form.Item>
               <Form.Item name="extra" label="金额">
@@ -230,7 +234,11 @@ export default function IndexPage() {
               >
                 <Input disabled={true}></Input>
               </Form.Item>
-              <Form.Item name="location" label="地点">
+              <Form.Item
+                name="location"
+                label="地点"
+                style={{ margin: '20px 0' }}
+              >
                 <Select>
                   {addressArr &&
                     addressArr.map((item) => (
@@ -256,7 +264,11 @@ export default function IndexPage() {
               >
                 <Input disabled={true}></Input>
               </Form.Item>
-              <Form.Item name="category" label="求助类别">
+              <Form.Item
+                name="category"
+                label="求助类别"
+                style={{ margin: '20px 0' }}
+              >
                 <Select style={{ width: 200 }}>
                   {orderType &&
                     orderType.map((item) => (
@@ -268,7 +280,7 @@ export default function IndexPage() {
                 <DatePicker showTime></DatePicker>
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={8} style={{ marginTop: '20px' }}>
               <Form.Item>
                 <Button type="primary" htmlType="submit">
                   提交
