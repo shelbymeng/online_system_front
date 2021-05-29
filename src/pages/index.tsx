@@ -57,52 +57,64 @@ export default function IndexPage() {
       title: '学生姓名',
       dataIndex: 'userName',
       key: 'userName',
+      width: 100,
+      fixed: true,
     },
     {
       title: '订单编号',
       dataIndex: 'orderId',
       key: 'orderId',
+      width: 200,
     },
     {
       title: '求助类别',
       dataIndex: 'category',
       key: 'category',
+      width: 100,
     },
     {
       title: '求助信息',
       dataIndex: 'info',
       key: 'info',
+      width: 100,
     },
     {
       title: '地点',
       dataIndex: 'location',
       key: 'location',
+      width: 100,
     },
     {
       title: '费用￥',
       dataIndex: 'extra',
       key: 'extra',
       sorter: (a: IOrder, b: IOrder) => a.extra - b.extra,
+      width: 100,
     },
     {
       title: '发布时间',
       dataIndex: 'releaseTime',
       key: 'releaseTime',
+      width: 100,
     },
     {
       title: '期望时间',
       dataIndex: 'expectTime',
       key: 'expectTime',
+      width: 100,
     },
     {
       title: '接单状态',
       dataIndex: 'state',
       key: 'state',
+      width: 100,
     },
     {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
+      fixed: 'right',
+      width: 100,
       render: (text: string, record: IOrder) => (
         <Popconfirm title="是否接单" onConfirm={() => approveOrder(record)}>
           <Button type="link">接单</Button>
@@ -201,6 +213,8 @@ export default function IndexPage() {
         columns={ordersColumn}
         dataSource={orders}
         pagination={{ pageSize: 5 }}
+        scroll={{ x: 1500 }}
+        sticky
       ></Table>
       <Modal
         visible={visible}
