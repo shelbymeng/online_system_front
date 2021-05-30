@@ -34,6 +34,13 @@ export default () => {
           >
             异常订单
           </Menu.Item>
+          <Menu.Item
+            key="4"
+            icon={<UserOutlined />}
+            onClick={() => history.push('/admin/comments')}
+          >
+            留言管理
+          </Menu.Item>
         </Menu>
       </Sider>
     </div>

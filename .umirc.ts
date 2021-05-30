@@ -25,6 +25,10 @@ export default defineConfig({
           path: '/admin/appeal',
           component: '@/pages/admin/appeal',
         },
+        {
+          path: '/admin/comments',
+          component: '@/pages/admin/comments',
+        },
       ],
     },
     {
